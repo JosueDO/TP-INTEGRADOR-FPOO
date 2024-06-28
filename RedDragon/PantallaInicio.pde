@@ -1,7 +1,7 @@
 class PantallaInicio{
   private float alto,ancho;
   private PImage imagen;
-  private String titulo,mensaje;
+  private String titulo,mensaje,mensaje2;
   private PFont fuente;
   private color tinte,tinte2,tinte3,tinte4,tinte5;
   private int i,i2,rojo;
@@ -17,8 +17,9 @@ class PantallaInicio{
     tinte3=color(rojo,0,0);
     tinte4= color(255);
     tinte5=color(0);
-    i=1;
+    i=3;
     i2=1;
+    mensaje2="HIGHSCORE: ";
   }
   public void display(){
     background(0);
@@ -27,11 +28,11 @@ class PantallaInicio{
     textFont(fuente);
     fill(tinte);
     textSize(60);
-    text(titulo,width/2+40,height/6);
+    text(titulo,width/2+60,height/6);
     fill(tinte2);
-    text(titulo,width/2-3+40,height/6-3);
+    text(titulo,width/2-3+60,height/6-3);
     fill(tinte3);
-    text(titulo,width/2-6+40,height/6-6);
+    text(titulo,width/2-6+60,height/6-6);
     rojo+=i2;
     tinte3=color(rojo,0,0);
     if(rojo==255||rojo==0)
@@ -44,5 +45,11 @@ class PantallaInicio{
     tinte4-=i;
     if(tinte4==0 || tinte4==255)
       i*=-1;
+    textSize(30);
+    fill(0);
+    text(mensaje2,30-3,30-3);
+    fill(random(255),random(255),random(255));
+    text(mensaje2,30,30);
+    
   }
 }
