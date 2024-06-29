@@ -48,7 +48,7 @@ class PantallaInicio{
     textSize(30);
     fill(0);
     text(mensaje2,30-3,30-3);
-    fill(random(255),random(255),random(255));
+    fill(255);
     text(mensaje2,30,30);
     
   }

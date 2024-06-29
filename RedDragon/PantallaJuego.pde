@@ -10,12 +10,14 @@ class PantallaJuego{
     k=0;
   }
   public void display(){
-    background(#009BD6);
+    background(#F78E0C);
     imageMode(CORNER);
+    tint(#FC9B24);
     image(imagen2,0-k,0,width,height);
     image(imagen2,width-k,0,width,height);
     image(imagen,0-i,0,width,height);
     image(imagen,width-i,0,width,height);
+    noTint();
    
     i++;
     k=k+0.5;
