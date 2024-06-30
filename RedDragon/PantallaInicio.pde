@@ -1,10 +1,9 @@
-class PantallaInicio{
-  private float alto,ancho;
+class PantallaInicio extends GameObject{
   private PImage imagen;
-  private String titulo,mensaje,mensaje2;
+  private String titulo,mensaje,mensaje2;//mensajes
   private PFont fuente;
-  private color tinte,tinte2,tinte3,tinte4,tinte5;
-  private int i,i2,rojo;
+  private color tinte,tinte2,tinte3,tinte4,tinte5; //valor de los colores
+  private int i,i2,rojo;//variables para controlar los colores
   
   public PantallaInicio(){
     imagen=loadImage("DragonRojo.jpg");
@@ -20,11 +19,13 @@ class PantallaInicio{
     i=3;
     i2=1;
     mensaje2="HIGHSCORE: ";
+    ancho=width-100;
+    alto=height;
   }
   public void display(){
     background(0);
     imageMode(CORNER);
-    image(imagen,50,0,width-100,height);
+    image(imagen,50,0,ancho,alto);
     textFont(fuente);
     fill(tinte);
     textSize(60);

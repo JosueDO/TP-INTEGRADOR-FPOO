@@ -9,7 +9,6 @@ class Muro extends GameObject{
     imagen=loadImage("muro.png");
     this.ancho=100;
     velocidad= new PVector(3,0);
-    println("----");
   }
   public void display(){
     imageMode(CORNER);

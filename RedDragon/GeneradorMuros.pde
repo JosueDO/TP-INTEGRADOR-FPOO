@@ -18,14 +18,13 @@ class GeneradorMuros{
     }
   }
   public void move(){
-    for(Muro m:muros){
-      if(m!=null){
-        m.move();
-        if(m.transform.posicion.x<0){
-          muros.remove(m);
-          println("...");
-        }
+    for(int i=0; i<muros.size();i++){
+      if(muros.get(i)!=null){
+        muros.get(i).move();
       }
+      if(muros.get(i).transform.posicion.x<0){
+        muros.remove(i);
+      }  
     }
   }
 }

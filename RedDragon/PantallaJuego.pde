@@ -1,29 +1,29 @@
-class PantallaJuego{
+class PantallaJuego extends GameObject{
   private PImage imagen,imagen2;
-  private int i;
-  private float k;
+  private float i,k;
   
   public PantallaJuego(){
     imagen=loadImage("fondo02.png");
     imagen2=loadImage("fondo01.png");
     i=0;
     k=0;
+    ancho=width;
+    alto=height;
   }
   public void display(){
     background(#F78E0C);
     imageMode(CORNER);
     tint(#FC9B24);
-    image(imagen2,0-k,0,width,height);
-    image(imagen2,width-k,0,width,height);
-    image(imagen,0-i,0,width,height);
-    image(imagen,width-i,0,width,height);
+    image(imagen2,-k,0,ancho,alto);
+    image(imagen2,ancho-k,0,ancho,alto);
+    image(imagen,-i,0,ancho,alto);
+    image(imagen,ancho-i,0,ancho,alto);
     noTint();
-   
+    k+=0.5;
     i++;
-    k=k+0.5;
-    if(abs(k)==width)
-      k=0;
-    if(abs(i)==width)
+    if(i>=ancho)
       i=0;
+    if(k>=ancho)
+      k=0;
   }
 }
