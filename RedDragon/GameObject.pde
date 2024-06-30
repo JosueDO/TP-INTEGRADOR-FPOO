@@ -1,3 +1,3 @@
 abstract class GameObject{
-  private float ancho,alto;
+  protected float ancho,alto;
 }

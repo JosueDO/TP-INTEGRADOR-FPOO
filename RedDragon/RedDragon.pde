@@ -6,19 +6,21 @@ AudioPlayer audio;
 private int estado;
 private PantallaInicio p;
 private PantallaJuego pj;
-private Bloque bloque;
-
-
+private GeneradorMuros sm;
+private Dragon d;
 
 
 public void setup(){
   size(800,500);
   estado=MaquinaEstado.MENU;
   p= new PantallaInicio();
-  bloque= new Bloque(new PVector(width-100,0));
+  sm= new GeneradorMuros();
   minim= new Minim(this);
   audio= minim.loadFile("musicaDeInicio.mp3");
   audio.play();
+  d=new Dragon();
+  sm.generarMuros();
+  
 }
 public void draw(){
   if(estado==MaquinaEstado.MENU){
@@ -29,8 +31,11 @@ public void draw(){
     }
   }
   if(estado==MaquinaEstado.JUGANDO){
+  
     pj.display();
-    bloque.display();
+    sm.display();
+    sm.move();
+    d.display();
   }
 }
 public void keyReleased(){
@@ -43,4 +48,7 @@ public void keyReleased(){
     estado=MaquinaEstado.MENU;
     p= new PantallaInicio();
   }
+}
+public void mouseReleased(){
+  
 }
