@@ -1,4 +1,4 @@
-class PantallaInicio extends GameObject{
+class PantallaInicio extends GameObject implements IDisplayable{
   private PImage imagen;
   private String titulo,mensaje,mensaje2;//mensajes
   private PFont fuente;
@@ -23,11 +23,13 @@ class PantallaInicio extends GameObject{
     alto=height;
   }
   public void display(){
+    //IMAGEN DE FONDO
     background(0);
     imageMode(CORNER);
     image(imagen,50,0,ancho,alto);
     textFont(fuente);
     fill(tinte);
+    //TITULO
     textSize(60);
     text(titulo,width/2+60,height/6);
     fill(tinte2);
@@ -38,6 +40,7 @@ class PantallaInicio extends GameObject{
     tinte3=color(rojo,0,0);
     if(rojo==255||rojo==0)
       i2*=-1;;
+    //MENSAJE ENTER
     textSize(40);
     fill(tinte5);
     text(mensaje,30,height-30);
@@ -46,6 +49,7 @@ class PantallaInicio extends GameObject{
     tinte4-=i;
     if(tinte4==0 || tinte4==255)
       i*=-1;
+    //HIGHSCORE
     textSize(30);
     fill(0);
     text(mensaje2,30-3,30-3);

@@ -1,4 +1,4 @@
-class Muro extends GameObject{
+class Muro extends GameObject implements IDisplayable{
   
   private Transform transform;
   private PImage imagen;
@@ -14,6 +14,7 @@ class Muro extends GameObject{
     imageMode(CORNER);
     image(imagen,this.transform.posicion.x,this.transform.posicion.y,100,300);
   }
+  /*MUEVE LOS MUROS HORIZONTALMENTE A LA IZQUIERDA*/
   public void move(){
     this.transform.posicion.x-=this.velocidad.x;
   }

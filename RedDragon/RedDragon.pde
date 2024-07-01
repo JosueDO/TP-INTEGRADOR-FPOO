@@ -4,36 +4,43 @@ Minim minim;
 AudioPlayer audio;
 
 private int estado;
-private int tiempoActual,tiempoInicial;
-private PantallaInicio p;
+private int tiempoActual,tiempoInicial;//CONTROLA EL TIEMPO DE APARACIO DE MUROS
+private int tiempoActualDragon,tiempoInicialDragon;
+private PantallaInicio pi;
 private PantallaJuego pj;
 private GeneradorMuros sm;
-private Dragon d;
+private Dragon dragon;
 
 
 public void setup(){
   size(800,500);
   estado=MaquinaEstado.MENU;
-  p= new PantallaInicio();
+  pi= new PantallaInicio();
   minim= new Minim(this);
   audio= minim.loadFile("musicaDeInicio.mp3");
-  d=new Dragon();
+  dragon=new Dragon();
   frameRate(60);
 }
 public void draw(){
   if(estado==MaquinaEstado.MENU){
-    p.display();
+    pi.display();
     if(!audio.isPlaying()){
       audio= minim.loadFile("musicaDeInicio.mp3");
       audio.play();
     }
   }
   if(estado==MaquinaEstado.JUGANDO){
-  
+    
     pj.display();
     sm.display();
     sm.move();
-    d.display();
+    tiempoActualDragon=millis();
+     dragon.display();
+    if(tiempoActualDragon-tiempoInicialDragon>=200){
+      dragon.display();
+      tiempoInicialDragon=tiempoActualDragon;
+    }
+    dragon.move();
     tiempoActual=millis();
     if (tiempoActual - tiempoInicial >= 3000) {  // Actualizar cada 300 ms
     sm.generarMuros();
@@ -41,19 +48,24 @@ public void draw(){
     }
   }
 }
+/*ENTER PARA INICIAR EL JUEGO Y SHIFT PARA VOLVER A LA PANTALLA DE INICIO*/
 public void keyReleased(){
-  if(keyCode==ENTER && estado==MaquinaEstado.MENU){
+  if(keyCode==ENTER && estado==MaquinaEstado.MENU){//PANTALLA INICIO
     audio.pause();
     estado=MaquinaEstado.JUGANDO;
     pj= new PantallaJuego();
     tiempoInicial=millis();
+    tiempoInicialDragon=millis();
     sm= new GeneradorMuros();
   }
-  if(keyCode==SHIFT && estado==MaquinaEstado.JUGANDO){
+  if(keyCode==SHIFT && estado==MaquinaEstado.JUGANDO){//PANTALLA DE JUEGO
     estado=MaquinaEstado.MENU;
-    p= new PantallaInicio();
+    pi= new PantallaInicio();
   }
 }
+/*EL DRAGON SALTA CON CLICK IZQUIERDO*/
 public void mouseReleased(){
-  
+  if(mouseButton==LEFT){
+    dragon.setVelocidad(new PVector(0,-75));
+  }
 }
