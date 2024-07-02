@@ -4,7 +4,7 @@ Minim minim;
 AudioPlayer audio;
 
 private int estado;
-private int tiempoActual,tiempoInicial;//CONTROLA EL TIEMPO DE APARACIO DE MUROS
+private int tiempoActual,tiempoInicial;//CONTROLA EL TIEMPO DE APARACION DE MUROS
 private int tiempoActualDragon,tiempoInicialDragon;
 private PantallaInicio pi;
 private PantallaJuego pj;

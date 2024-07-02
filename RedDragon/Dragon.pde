@@ -1,12 +1,12 @@
 class Dragon  extends GameObject implements IDisplayable{
   private Transform transform;
-  private PImage imagen;
+  private ImageComponent imageComponent;
   private int posFrameX,posFrameY,altoFrame,anchoFrame;
   private PVector velocidad;
   
   public Dragon(){
     transform= new Transform(new PVector(width/6*2,height/2));
-    imagen= loadImage("reddragonfly.png");
+    imageComponent= new ImageComponent("reddragonfly.png");
     posFrameX=0;
     posFrameY=0;
     anchoFrame=170;
@@ -15,13 +15,13 @@ class Dragon  extends GameObject implements IDisplayable{
   }
   
   public void display(){
-    PImage frame = imagen.get(this.posFrameX,this.posFrameY,this.anchoFrame,this.altoFrame);
+    PImage frame = imageComponent.imagen.get(this.posFrameX,this.posFrameY,this.anchoFrame,this.altoFrame);
     //rectMode(CENTER);
     //rect(this.transform.posicion.x,this.transform.posicion.y,80,60);
     frame.resize(80,60);
     imageMode(CENTER);
     image(frame,this.transform.posicion.x,this.transform.posicion.y);
-    if(this.posFrameX < imagen.width-this.anchoFrame-40){
+    if(this.posFrameX < imageComponent.imagen.width-this.anchoFrame-40){
       posFrameX+=this.anchoFrame+40;
     }else{
       posFrameX=0;

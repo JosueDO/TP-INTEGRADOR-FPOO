@@ -1,24 +1,25 @@
 class PantallaInicio extends GameObject implements IDisplayable{
-  private PImage imagen;
+  
+  private ImageComponent imageComponent;
   private String titulo,mensaje,mensaje2;//mensajes
   private PFont fuente;
   private color tinte,tinte2,tinte3,tinte4,tinte5; //valor de los colores
   private int i,i2,rojo;//variables para controlar los colores
   
   public PantallaInicio(){
-    imagen=loadImage("DragonRojo.jpg");
+    imageComponent= new ImageComponent("DragonRojo.jpg");
     fuente= loadFont("AgencyFB-Bold-48.vlw");
     titulo= "RED   DRAGON";
     mensaje="PRESIONE ENTER...";
+    mensaje2="HIGHSCORE: ";
+    rojo=0;
+    i=3;
+    i2=1;
     tinte= color(#E37702);
     tinte2= color(#A50709);
-    rojo=0;
     tinte3=color(rojo,0,0);
     tinte4= color(255);
     tinte5=color(0);
-    i=3;
-    i2=1;
-    mensaje2="HIGHSCORE: ";
     ancho=width-100;
     alto=height;
   }
@@ -26,7 +27,7 @@ class PantallaInicio extends GameObject implements IDisplayable{
     //IMAGEN DE FONDO
     background(0);
     imageMode(CORNER);
-    image(imagen,50,0,ancho,alto);
+    imageComponent.displayImage(new PVector(50,0),this.ancho,this.alto);
     textFont(fuente);
     fill(tinte);
     //TITULO
