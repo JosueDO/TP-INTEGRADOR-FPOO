@@ -1,13 +1,16 @@
 class PantallaJuego extends GameObject implements IDisplayable{
   
-  private ImageComponent imageComponent,imageComponent2;
-  private float i,k;// VARIABLES PARA CONTROLAR LAS NUBES
+  private ImageComponent nubesGrandes,nubesChicas;
+  private Transform transform,transform2;
+  private PVector velocidad,velocidad2;
   
-  public PantallaJuego(){
-    imageComponent= new ImageComponent("fondo02.png");
-    imageComponent2= new ImageComponent("fondo01.png");
-    i=0;
-    k=0;
+  public PantallaJuego(PVector posicion){
+    nubesGrandes= new ImageComponent("fondo01.png");
+    nubesChicas= new ImageComponent("fondo02.png");
+    transform= new Transform(new PVector(0,0));
+    transform2=new Transform(new PVector(0,0));
+    this.velocidad= new PVector(50,0);
+    this.velocidad2=new PVector(80,0);
     ancho=width;
     alto=height;
   }
@@ -15,18 +18,25 @@ class PantallaJuego extends GameObject implements IDisplayable{
     background(#F78E0C);
     imageMode(CORNER);
     tint(#FC9B24);
-    //NUBES GRANDES
-    imageComponent2.displayImage(new PVector(-k,0),this.ancho,this.alto);
-    imageComponent2.displayImage(new PVector(this.ancho-k,0),this.ancho,this.alto);
-    k+=0.5;
-    if(k>=ancho)
-      k=0;
-    //NUBES CHICAS
-    imageComponent.displayImage(new PVector(-i,0),this.ancho,this.alto);
-    imageComponent.displayImage(new PVector(this.ancho-i,0),this.ancho,this.alto);
-    i++;
-    if(i>=ancho)
-      i=0;
+    nubesGrandes.displayImage(new PVector(this.transform.posicion.x,this.transform.posicion.y),ancho,alto);
+    nubesGrandes.displayImage(new PVector(this.transform.posicion.x+ancho,this.transform.posicion.y),ancho,alto);
+    nubesChicas.displayImage(new PVector(this.transform2.posicion.x,this.transform2.posicion.y),ancho,alto);
+    nubesChicas.displayImage(new PVector(this.transform2.posicion.x+ancho,this.transform2.posicion.y),ancho,alto);
+   
     noTint();
   }
+  public void move(){
+    if(transform.posicion.x> -ancho){
+      this.transform.posicion.x-=velocidad.x*Time.getDeltaTime(frameRate);
+    }else{
+      this.transform.posicion.x=0;
+    }
+   if(transform2.posicion.x> -ancho){
+      this.transform2.posicion.x-=velocidad2.x*Time.getDeltaTime(frameRate);
+    }else{
+      this.transform2.posicion.x=0;
+    }
+  
+}
+ 
 }

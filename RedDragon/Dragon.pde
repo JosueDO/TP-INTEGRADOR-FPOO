@@ -1,38 +1,44 @@
 class Dragon  extends GameObject implements IDisplayable{
   private Transform transform;
-  private ImageComponent imageComponent;
-  private int posFrameX,posFrameY,altoFrame,anchoFrame;
   private PVector velocidad;
+  private SpriteDragon spriteDragon;
+  private int estadoDragon;
   
   public Dragon(){
-    transform= new Transform(new PVector(width/6*2,height/2));
-    imageComponent= new ImageComponent("reddragonfly.png");
-    posFrameX=0;
-    posFrameY=0;
-    anchoFrame=170;
-    altoFrame=129;
-    velocidad= new PVector(0,5);// VELOCIDAD DE CAIDA DEL DRAGON
-  }
-  
+    transform= new Transform(new PVector(width/2,height/5));
+    spriteDragon= new SpriteDragon();
+    estadoDragon= MaquinaEstadoDragon.CAYENDO;
+    this.ancho=100;
+    this.alto=100;
+    velocidad= new PVector(0,200);// VELOCIDAD DE CAIDA DEL DRAGON
+  } 
   public void display(){
-    PImage frame = imageComponent.imagen.get(this.posFrameX,this.posFrameY,this.anchoFrame,this.altoFrame);
-    //rectMode(CENTER);
-    //rect(this.transform.posicion.x,this.transform.posicion.y,80,60);
-    frame.resize(80,60);
     imageMode(CENTER);
-    image(frame,this.transform.posicion.x,this.transform.posicion.y);
-    if(this.posFrameX < imageComponent.imagen.width-this.anchoFrame-40){
-      posFrameX+=this.anchoFrame+40;
-    }else{
-      posFrameX=0;
-    }
+    rectMode(CENTER);
+    rect(this.transform.posicion.x,this.transform.posicion.y,this.ancho-30,this.alto-50);
+    spriteDragon.renderDragon(estadoDragon,this.transform.posicion,this.ancho,this.alto);
   }
   public void move(){
-    this.transform.setPosicion(new PVector(this.transform.posicion.x,this.transform.posicion.y+this.velocidad.y));
-    velocidad= new PVector(0,5);
+    switch(estadoDragon){
+      case MaquinaEstadoDragon.CAYENDO:
+      this.transform.setPosicion(new PVector(this.transform.posicion.x,this.transform.posicion.y+this.velocidad.y*Time.getDeltaTime(frameRate)));
+      break;
+      case MaquinaEstadoDragon.VOLANDO:
+      this.transform.setPosicion(new PVector(this.transform.posicion.x,this.transform.posicion.y-this.velocidad.y*Time.getDeltaTime(frameRate)));
+      break;
+    }
   }
   
   public void setVelocidad(PVector velocidad){
     this.velocidad=velocidad;
+  }
+  
+  public void setEstadoDragon(int estadoDragon){
+    this.estadoDragon=estadoDragon;
+    if(this.estadoDragon==MaquinaEstadoDragon.VOLANDO){
+      this.setVelocidad(new PVector(0,300));
+    }else if(this.estadoDragon==MaquinaEstadoDragon.CAYENDO){
+      this.setVelocidad(new PVector(0,300));
+    }
   }
 }

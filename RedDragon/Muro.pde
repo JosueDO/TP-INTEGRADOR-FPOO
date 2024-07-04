@@ -9,7 +9,7 @@ class Muro extends GameObject implements IDisplayable{
     imageComponent= new ImageComponent("muro.png");
     this.ancho=100;
     this.alto=300;
-    velocidad= new PVector(3,0);
+    velocidad= new PVector(100,0);
   }
   public void display(){
     imageMode(CORNER);
@@ -17,7 +17,7 @@ class Muro extends GameObject implements IDisplayable{
   }
   /*MUEVE LOS MUROS HORIZONTALMENTE A LA IZQUIERDA*/
   public void move(){
-    this.transform.posicion.x-=this.velocidad.x;
+    this.transform.posicion.x-=this.velocidad.x*Time.getDeltaTime(frameRate);
   }
   
 }

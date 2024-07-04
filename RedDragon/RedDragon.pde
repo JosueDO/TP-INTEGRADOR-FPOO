@@ -5,7 +5,6 @@ AudioPlayer audio;
 
 private int estado;
 private int tiempoActual,tiempoInicial;//CONTROLA EL TIEMPO DE APARACION DE MUROS
-private int tiempoActualDragon,tiempoInicialDragon;
 private PantallaInicio pi;
 private PantallaJuego pj;
 private GeneradorMuros sm;
@@ -18,8 +17,7 @@ public void setup(){
   pi= new PantallaInicio();
   minim= new Minim(this);
   audio= minim.loadFile("musicaDeInicio.mp3");
-  dragon=new Dragon();
-  frameRate(60);
+
 }
 public void draw(){
   if(estado==MaquinaEstado.MENU){
@@ -32,14 +30,10 @@ public void draw(){
   if(estado==MaquinaEstado.JUGANDO){
     
     pj.display();
+    pj.move();
     sm.display();
     sm.move();
-    tiempoActualDragon=millis();
-     dragon.display();
-    if(tiempoActualDragon-tiempoInicialDragon>=200){
-      dragon.display();
-      tiempoInicialDragon=tiempoActualDragon;
-    }
+    dragon.display();
     dragon.move();
     tiempoActual=millis();
     if (tiempoActual - tiempoInicial >= 3000) {  // Actualizar cada 300 ms
@@ -53,9 +47,9 @@ public void keyReleased(){
   if(keyCode==ENTER && estado==MaquinaEstado.MENU){//PANTALLA INICIO
     audio.pause();
     estado=MaquinaEstado.JUGANDO;
-    pj= new PantallaJuego();
+    dragon=new Dragon();
+    pj= new PantallaJuego(new PVector(0,0));
     tiempoInicial=millis();
-    tiempoInicialDragon=millis();
     sm= new GeneradorMuros();
   }
   if(keyCode==SHIFT && estado==MaquinaEstado.JUGANDO){//PANTALLA DE JUEGO
@@ -63,9 +57,14 @@ public void keyReleased(){
     pi= new PantallaInicio();
   }
 }
-/*EL DRAGON SALTA CON CLICK IZQUIERDO*/
+/*EL DRAGON VUELA CON CLICK IZQUIERDO*/
+public void mousePressed(){
+  if(mouseButton==LEFT && estado==MaquinaEstado.JUGANDO){
+    dragon.setEstadoDragon(MaquinaEstadoDragon.VOLANDO);
+  } 
+}
 public void mouseReleased(){
-  if(mouseButton==LEFT){
-    dragon.setVelocidad(new PVector(0,-75));
-  }
+  if(mouseButton==LEFT && estado== MaquinaEstado.JUGANDO){
+    dragon.setEstadoDragon(MaquinaEstadoDragon.CAYENDO);
+  } 
 }
