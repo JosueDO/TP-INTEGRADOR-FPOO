@@ -32,4 +32,8 @@ class GeneradorMuros implements IDisplayable{
       }  
     }
   }
+  
+  public ArrayList<Muro> getMuros(){
+    return this.muros;
+  }
 }

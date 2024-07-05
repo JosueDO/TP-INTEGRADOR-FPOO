@@ -33,8 +33,10 @@ public void draw(){
     pj.move();
     sm.display();
     sm.move();
+    pj.mostrarPuntaje(dragon);
     dragon.display();
     dragon.move();
+    dragon.dragonPasoMuro(sm.getMuros());
     tiempoActual=millis();
     if (tiempoActual - tiempoInicial >= 3000) {  // Actualizar cada 300 ms
     sm.generarMuros();

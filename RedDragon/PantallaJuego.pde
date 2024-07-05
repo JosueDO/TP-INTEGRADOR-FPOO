@@ -16,14 +16,18 @@ class PantallaJuego extends GameObject implements IDisplayable{
   }
   public void display(){
     background(#F78E0C);
-    //imageMode(CORNER);
-    //tint(#FC9B24);
-    //nubesGrandes.displayImage(new PVector(this.transform.posicion.x,this.transform.posicion.y),ancho,alto);
-    //nubesGrandes.displayImage(new PVector(this.transform.posicion.x+ancho,this.transform.posicion.y),ancho,alto);
-    //nubesChicas.displayImage(new PVector(this.transform2.posicion.x,this.transform2.posicion.y),ancho,alto);
-    //nubesChicas.displayImage(new PVector(this.transform2.posicion.x+ancho,this.transform2.posicion.y),ancho,alto);
+    imageMode(CORNER);
+    tint(#FC9B24);
+    nubesGrandes.displayImage(new PVector(this.transform.posicion.x,this.transform.posicion.y),ancho,alto);
+    nubesGrandes.displayImage(new PVector(this.transform.posicion.x+ancho,this.transform.posicion.y),ancho,alto);
+    nubesChicas.displayImage(new PVector(this.transform2.posicion.x,this.transform2.posicion.y),ancho,alto);
+    nubesChicas.displayImage(new PVector(this.transform2.posicion.x+ancho,this.transform2.posicion.y),ancho,alto);
    
-    //noTint();
+    noTint();
+  }
+  public void mostrarPuntaje(Dragon dragon){
+    
+    text(dragon.getPuntaje()/2,width/2,height/10);
   }
   public void move(){
     if(transform.posicion.x> -ancho){
