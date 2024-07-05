@@ -48,7 +48,7 @@ public void keyReleased(){
     audio.pause();
     estado=MaquinaEstado.JUGANDO;
     dragon=new Dragon();
-    pj= new PantallaJuego(new PVector(0,0));
+    pj= new PantallaJuego();
     tiempoInicial=millis();
     sm= new GeneradorMuros();
   }

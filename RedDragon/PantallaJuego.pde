@@ -4,7 +4,7 @@ class PantallaJuego extends GameObject implements IDisplayable{
   private Transform transform,transform2;
   private PVector velocidad,velocidad2;
   
-  public PantallaJuego(PVector posicion){
+  public PantallaJuego(){
     nubesGrandes= new ImageComponent("fondo01.png");
     nubesChicas= new ImageComponent("fondo02.png");
     transform= new Transform(new PVector(0,0));
@@ -16,14 +16,14 @@ class PantallaJuego extends GameObject implements IDisplayable{
   }
   public void display(){
     background(#F78E0C);
-    imageMode(CORNER);
-    tint(#FC9B24);
-    nubesGrandes.displayImage(new PVector(this.transform.posicion.x,this.transform.posicion.y),ancho,alto);
-    nubesGrandes.displayImage(new PVector(this.transform.posicion.x+ancho,this.transform.posicion.y),ancho,alto);
-    nubesChicas.displayImage(new PVector(this.transform2.posicion.x,this.transform2.posicion.y),ancho,alto);
-    nubesChicas.displayImage(new PVector(this.transform2.posicion.x+ancho,this.transform2.posicion.y),ancho,alto);
+    //imageMode(CORNER);
+    //tint(#FC9B24);
+    //nubesGrandes.displayImage(new PVector(this.transform.posicion.x,this.transform.posicion.y),ancho,alto);
+    //nubesGrandes.displayImage(new PVector(this.transform.posicion.x+ancho,this.transform.posicion.y),ancho,alto);
+    //nubesChicas.displayImage(new PVector(this.transform2.posicion.x,this.transform2.posicion.y),ancho,alto);
+    //nubesChicas.displayImage(new PVector(this.transform2.posicion.x+ancho,this.transform2.posicion.y),ancho,alto);
    
-    noTint();
+    //noTint();
   }
   public void move(){
     if(transform.posicion.x> -ancho){

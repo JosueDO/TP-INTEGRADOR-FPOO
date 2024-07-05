@@ -5,7 +5,7 @@ class Dragon  extends GameObject implements IDisplayable{
   private int estadoDragon;
   
   public Dragon(){
-    transform= new Transform(new PVector(width/2,height/5));
+    transform= new Transform(new PVector(width/4,height/6));
     spriteDragon= new SpriteDragon();
     estadoDragon= MaquinaEstadoDragon.CAYENDO;
     this.ancho=100;
@@ -13,9 +13,9 @@ class Dragon  extends GameObject implements IDisplayable{
     velocidad= new PVector(0,200);// VELOCIDAD DE CAIDA DEL DRAGON
   } 
   public void display(){
-    imageMode(CENTER);
-    rectMode(CENTER);
-    rect(this.transform.posicion.x,this.transform.posicion.y,this.ancho-30,this.alto-50);
+    imageMode(CORNER);
+    rectMode(CORNER);
+    rect(this.transform.posicion.x+15,this.transform.posicion.y+25,this.ancho-30,this.alto-50);
     spriteDragon.renderDragon(estadoDragon,this.transform.posicion,this.ancho,this.alto);
   }
   public void move(){
