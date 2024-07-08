@@ -3,7 +3,7 @@ class Dragon  extends GameObject implements IDisplayable{
   private PVector velocidad;
   private SpriteDragon spriteDragon;
   private int estadoDragon;
-  private int puntaje;
+  private float puntaje;
   private Collider collider;
   
   public Dragon(){
@@ -14,7 +14,7 @@ class Dragon  extends GameObject implements IDisplayable{
     this.alto=100;
     this.puntaje=0;
     velocidad= new PVector(0,200);// VELOCIDAD DE CAIDA DEL DRAGON
-    collider= new Collider(new PVector(this.transform.posicion.x+15,this.transform.posicion.y+30),this.ancho-30,this.alto-60);
+    collider= new Collider(new PVector(this.transform.posicion.x+20,this.transform.posicion.y+30),this.ancho-35,this.alto-60);
   } 
   public void display(){
     imageMode(CORNER);
@@ -30,6 +30,9 @@ class Dragon  extends GameObject implements IDisplayable{
       case MaquinaEstadoDragon.VOLANDO:
       this.transform.setPosicion(new PVector(this.transform.posicion.x,this.transform.posicion.y-this.velocidad.y*Time.getDeltaTime(frameRate)));
       break;
+      case MaquinaEstadoDragon.GANANDO:
+      this.transform.setPosicion(new PVector(this.transform.posicion.x+this.velocidad.x*Time.getDeltaTime(frameRate),this.transform.posicion.y));
+      break;
     }
     this.collider.transform.setPosicion(new PVector(this.transform.posicion.x+15,this.transform.posicion.y+30));
   }
@@ -44,6 +47,8 @@ class Dragon  extends GameObject implements IDisplayable{
       this.setVelocidad(new PVector(0,250));
     }else if(this.estadoDragon==MaquinaEstadoDragon.CAYENDO){
       this.setVelocidad(new PVector(0,300));
+    }else if(this.estadoDragon==MaquinaEstadoDragon.GANANDO){
+      this.setVelocidad(new PVector(50,0));
     }
   }
  public void dragonPasoMuro(ArrayList<Muro> muros){
@@ -51,7 +56,7 @@ class Dragon  extends GameObject implements IDisplayable{
      if(m!=null){
        if(m.transform.getPosicion().x+m.getAncho()<=this.transform.posicion.x && !m.isSumado()){
           m.setSumado(true);
-         this.puntaje++;
+         this.puntaje+=0.5;
        }
      }
    }
@@ -68,7 +73,13 @@ class Dragon  extends GameObject implements IDisplayable{
    }
    return false;
  }
- public int getPuntaje(){
+ public boolean sobrepasarLimites(){
+   return this.transform.posicion.y>=height || this.transform.posicion.y+this.alto<=0;
+ }
+ public boolean sobrepasarMeta(){
+   return this.transform.posicion.x>=width;
+ }
+ public float getPuntaje(){
    return this.puntaje;
  }
 }

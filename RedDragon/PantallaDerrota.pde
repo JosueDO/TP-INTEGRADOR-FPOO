@@ -15,7 +15,7 @@ class PantallaDerrota extends GameObject{
     this.alto=height;
     negro=0;
     tinteNegro=color(negro);
-    velTransicionNegro=15;
+    velTransicionNegro=25;
   }
   
   public void display(){

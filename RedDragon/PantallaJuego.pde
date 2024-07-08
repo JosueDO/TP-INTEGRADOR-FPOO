@@ -26,8 +26,8 @@ class PantallaJuego extends GameObject implements IDisplayable{
     noTint();
   }
   public void mostrarPuntaje(Dragon dragon){
-    
-    text(dragon.getPuntaje()/2,width/2,height/10);
+    fill(255,0,0);
+    text((int)dragon.getPuntaje(),width/2,height/10);
   }
   public void move(){
     if(transform.posicion.x> -ancho){
