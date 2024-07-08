@@ -7,6 +7,7 @@ private int estado;
 private int tiempoActual,tiempoInicial;//CONTROLA EL TIEMPO DE APARACION DE MUROS
 private PantallaInicio pi;
 private PantallaJuego pj;
+private PantallaDerrota pd;
 private GeneradorMuros sm;
 private Dragon dragon;
 
@@ -17,6 +18,7 @@ public void setup(){
   pi= new PantallaInicio();
   minim= new Minim(this);
   audio= minim.loadFile("musicaDeInicio.mp3");
+  pd= new PantallaDerrota();
 
 }
 public void draw(){
@@ -27,21 +29,29 @@ public void draw(){
       audio.play();
     }
   }
-  if(estado==MaquinaEstado.JUGANDO){
+  if(estado==MaquinaEstado.JUGANDO && estado!=MaquinaEstado.PERDIENDO){
+    
     
     pj.display();
     pj.move();
     sm.display();
-    sm.move();
     pj.mostrarPuntaje(dragon);
     dragon.display();
+    if(dragon.chocar(sm.getMuros())){
+      estado= MaquinaEstado.PERDIENDO;
+    }
     dragon.move();
+    sm.move();
+  
     dragon.dragonPasoMuro(sm.getMuros());
     tiempoActual=millis();
     if (tiempoActual - tiempoInicial >= 3000) {  // Actualizar cada 300 ms
     sm.generarMuros();
     tiempoInicial = tiempoActual;
     }
+  }
+  if(estado==MaquinaEstado.PERDIENDO){
+    pd.display();
   }
 }
 /*ENTER PARA INICIAR EL JUEGO Y SHIFT PARA VOLVER A LA PANTALLA DE INICIO*/

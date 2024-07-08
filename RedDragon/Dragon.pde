@@ -4,6 +4,7 @@ class Dragon  extends GameObject implements IDisplayable{
   private SpriteDragon spriteDragon;
   private int estadoDragon;
   private int puntaje;
+  private Collider collider;
   
   public Dragon(){
     transform= new Transform(new PVector(width/4,height/6));
@@ -13,11 +14,12 @@ class Dragon  extends GameObject implements IDisplayable{
     this.alto=100;
     this.puntaje=0;
     velocidad= new PVector(0,200);// VELOCIDAD DE CAIDA DEL DRAGON
+    collider= new Collider(new PVector(this.transform.posicion.x+15,this.transform.posicion.y+25),this.ancho-30,this.alto-50);
   } 
   public void display(){
     imageMode(CORNER);
     //rectMode(CORNER);
-    //rect(this.transform.posicion.x+20,this.transform.posicion.y+30,this.ancho-40,this.alto-60);
+    //rect(this.collider.transform.posicion.x,this.collider.transform.posicion.y,this.collider.getAncho(),this.collider.getAlto());
     spriteDragon.renderDragon(estadoDragon,this.transform.posicion,this.ancho,this.alto);
   }
   public void move(){
@@ -29,6 +31,7 @@ class Dragon  extends GameObject implements IDisplayable{
       this.transform.setPosicion(new PVector(this.transform.posicion.x,this.transform.posicion.y-this.velocidad.y*Time.getDeltaTime(frameRate)));
       break;
     }
+    this.collider.transform.setPosicion(new PVector(this.transform.posicion.x+15,this.transform.posicion.y+25));
   }
   
   public void setVelocidad(PVector velocidad){
@@ -52,6 +55,18 @@ class Dragon  extends GameObject implements IDisplayable{
        }
      }
    }
+ }
+ public boolean chocar(ArrayList<Muro> muros){
+   boolean isCollide=false;
+   for (Muro m:muros){
+     if(m!=null){
+       isCollide=this.collider.verificarColision(m.getCollider());
+       if(isCollide){
+         return true;
+       }
+     }
+   }
+   return false;
  }
  public int getPuntaje(){
    return this.puntaje;
