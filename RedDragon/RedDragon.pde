@@ -2,6 +2,7 @@ import ddf.minim.*;
 
 Minim minim;
 AudioPlayer audio;
+AudioPlayer audioDerrota;
 
 private int estado;
 private int tiempoActual,tiempoInicial;//CONTROLA EL TIEMPO DE APARACION DE MUROS
@@ -17,7 +18,8 @@ public void setup(){
   estado=MaquinaEstado.MENU;
   pi= new PantallaInicio();
   minim= new Minim(this);
-  audio= minim.loadFile("musicaDeInicio.mp3");
+  audio= minim.loadFile("SonidoDerrota.mp3");
+  audio.play();
   pd= new PantallaDerrota();
 
 }
@@ -25,7 +27,7 @@ public void draw(){
   if(estado==MaquinaEstado.MENU){
     pi.display();
     if(!audio.isPlaying()){
-      audio= minim.loadFile("musicaDeInicio.mp3");
+      audio.rewind();
       audio.play();
     }
   }
@@ -39,6 +41,10 @@ public void draw(){
     dragon.display();
     if(dragon.chocar(sm.getMuros())){
       estado= MaquinaEstado.PERDIENDO;
+
+      minim= new Minim(this);
+      audio= minim.loadFile("derrota.mp3");
+      audio.play();
     }
     dragon.move();
     sm.move();
@@ -52,12 +58,14 @@ public void draw(){
   }
   if(estado==MaquinaEstado.PERDIENDO){
     pd.display();
+   
   }
 }
 /*ENTER PARA INICIAR EL JUEGO Y SHIFT PARA VOLVER A LA PANTALLA DE INICIO*/
 public void keyReleased(){
   if(keyCode==ENTER && estado==MaquinaEstado.MENU){//PANTALLA INICIO
     audio.pause();
+    audio.rewind();
     estado=MaquinaEstado.JUGANDO;
     dragon=new Dragon();
     pj= new PantallaJuego();

@@ -3,6 +3,8 @@ class PantallaDerrota extends GameObject{
   private String derrota;
   private PFont fuente;
   private Transform transform;
+  private float velTransicionNegro,negro;
+  private color tinteNegro;
   
   public PantallaDerrota(){
     imageComponent= new ImageComponent("derrota.jpg");
@@ -11,13 +13,22 @@ class PantallaDerrota extends GameObject{
     transform= new Transform(new PVector(width/2,height/2));
     this.ancho=width;
     this.alto=height;
+    negro=0;
+    tinteNegro=color(negro);
+    velTransicionNegro=15;
   }
   
   public void display(){
     textFont(fuente);
-    imageMode(CORNER);
+    tint(tinteNegro);
+    if(negro<255)
+      negro+=velTransicionNegro*Time.getDeltaTime(frameRate);
+    tinteNegro=color(negro);
+    imageMode(CENTER);
     imageComponent.displayImage(this.transform.posicion,width,height);
-    textSize(50);
-    text(derrota,width/2,height*6/7);
+    fill(negro);
+    textSize(60);
+    text(derrota,width/2-120,height*6/7);
+    noTint();
   }
 }

@@ -14,12 +14,12 @@ class Dragon  extends GameObject implements IDisplayable{
     this.alto=100;
     this.puntaje=0;
     velocidad= new PVector(0,200);// VELOCIDAD DE CAIDA DEL DRAGON
-    collider= new Collider(new PVector(this.transform.posicion.x+15,this.transform.posicion.y+25),this.ancho-30,this.alto-50);
+    collider= new Collider(new PVector(this.transform.posicion.x+15,this.transform.posicion.y+30),this.ancho-30,this.alto-60);
   } 
   public void display(){
     imageMode(CORNER);
-    //rectMode(CORNER);
-    //rect(this.collider.transform.posicion.x,this.collider.transform.posicion.y,this.collider.getAncho(),this.collider.getAlto());
+    rectMode(CORNER);
+    rect(this.collider.transform.posicion.x,this.collider.transform.posicion.y,this.collider.getAncho(),this.collider.getAlto());
     spriteDragon.renderDragon(estadoDragon,this.transform.posicion,this.ancho,this.alto);
   }
   public void move(){
@@ -31,7 +31,7 @@ class Dragon  extends GameObject implements IDisplayable{
       this.transform.setPosicion(new PVector(this.transform.posicion.x,this.transform.posicion.y-this.velocidad.y*Time.getDeltaTime(frameRate)));
       break;
     }
-    this.collider.transform.setPosicion(new PVector(this.transform.posicion.x+15,this.transform.posicion.y+25));
+    this.collider.transform.setPosicion(new PVector(this.transform.posicion.x+15,this.transform.posicion.y+30));
   }
   
   public void setVelocidad(PVector velocidad){
