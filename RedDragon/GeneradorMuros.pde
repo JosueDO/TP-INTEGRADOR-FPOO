@@ -1,10 +1,10 @@
-class GeneradorMuros implements IDisplayable {
+class GeneradorMuros implements IDisplayable, IMoveable{
   private ArrayList <Muro> muros;
   private int i,total;
 
   public GeneradorMuros() {
     muros= new ArrayList();
-    total=5;//CANTIDAD TOTAL DE PARES DE MUROS
+    total=15;//CANTIDAD TOTAL DE PARES DE MUROS
     i=total*2;//VARIABLE PARA CONTROLAR LA CANTIDAD DE MUROS A GENERAR
   }
   /*GENERA 2 MUROS A LA VEZ*/

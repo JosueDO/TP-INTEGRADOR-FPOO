@@ -1,4 +1,4 @@
-class PantallaJuego extends GameObject implements IDisplayable{
+class PantallaJuego extends GameObject implements IDisplayable,IMoveable{
   
   private ImageComponent nubesGrandes,nubesChicas;
   private Transform transform,transform2;
@@ -26,7 +26,7 @@ class PantallaJuego extends GameObject implements IDisplayable{
     noTint();
   }
   public void mostrarPuntaje(Dragon dragon){
-    fill(255,0,0);
+    fill(255);
     text((int)dragon.getPuntaje(),width/2,height/10);
   }
   public void move(){

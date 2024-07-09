@@ -3,6 +3,7 @@ class PantallaVictoria extends GameObject{
   private Transform transform;
   private String mensaje;
   private PFont fuente;
+  
   public PantallaVictoria(){
     imageComponent= new ImageComponent("victoria.jpg");
     transform= new Transform(new PVector(width/2,height/2));

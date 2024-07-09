@@ -1,7 +1,7 @@
 class PantallaInicio extends GameObject implements IDisplayable{
   
   private ImageComponent imageComponent;
-  private String titulo,mensaje;//mensajes
+  private String titulo,presioneEnter;//mensajes
   private PFont fuente;
   private color tinte,tinte2,tinte3,tinte4,tinte5; //valor de los colores
   private float velTransicionRojo,rojo,amarillo,velTransicionAmarillo;
@@ -10,7 +10,7 @@ class PantallaInicio extends GameObject implements IDisplayable{
     imageComponent= new ImageComponent("DragonRojo.jpg");
     fuente= loadFont("AgencyFB-Bold-48.vlw");
     titulo= "RED   DRAGON";
-    mensaje="PRESIONE ENTER...";
+    presioneEnter="PRESIONE ENTER...";
     rojo=0;
     amarillo=255;
     tinte= color(#E37702);
@@ -44,9 +44,9 @@ class PantallaInicio extends GameObject implements IDisplayable{
     //MENSAJE ENTER
     textSize(40);
     fill(tinte5);
-    text(mensaje,30,height-30);
+    text(presioneEnter,30,height-30);
     fill(tinte4);
-    text(mensaje,30-3,height-30-3);
+    text(presioneEnter,30-3,height-30-3);
     amarillo-=velTransicionAmarillo*Time.getDeltaTime(frameRate);
     tinte4=color(255,255,amarillo);
     if(amarillo<=0 || amarillo>=255)

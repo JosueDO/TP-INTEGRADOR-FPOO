@@ -1,4 +1,4 @@
-class Dragon  extends GameObject implements IDisplayable{
+class Dragon  extends GameObject implements IDisplayable,IMoveable{
   private Transform transform;
   private PVector velocidad;
   private SpriteDragon spriteDragon;

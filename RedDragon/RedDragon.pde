@@ -1,7 +1,7 @@
 import ddf.minim.*;
 
-Minim minim;
-AudioPlayer audio;
+private Minim minim;
+private AudioPlayer audio;
 
 private int estado;
 private int tiempoActual,tiempoInicial;//CONTROLA EL TIEMPO DE APARACION DE MUROS

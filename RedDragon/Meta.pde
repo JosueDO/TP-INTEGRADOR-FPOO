@@ -1,4 +1,4 @@
-class Meta extends GameObject implements IDisplayable{
+class Meta extends GameObject implements IDisplayable,IMoveable{
   private Transform transform;
   private ImageComponent imageComponent;
   private PVector velocidad;

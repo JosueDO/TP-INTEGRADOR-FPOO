@@ -1,4 +1,4 @@
-class Muro extends GameObject implements IDisplayable{
+class Muro extends GameObject implements IDisplayable,IMoveable{
   
   private Transform transform;
   private ImageComponent imageComponent;
