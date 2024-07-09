@@ -11,7 +11,7 @@ class GeneradorMuros implements IDisplayable, IMoveable{
   public void generarMuros() {
     if (i>0) {
       float altoUno, altoDos;
-      altoUno= random(0, 300);
+      altoUno= random(0, 300);//ALTO DEL MURO DE ABAJO
       altoDos=300-altoUno;
       muros.add(new Muro(new PVector(width, height-altoDos)));
       muros.add(new Muro(new PVector(width, height-altoDos-500)));
@@ -36,20 +36,22 @@ class GeneradorMuros implements IDisplayable, IMoveable{
         muros.get(i).move();
       }
     }
-    if(muros.size()>0){
+    if(muros.size()>0){// DE ESTA MANERA SE ELIMINARAN 2 MUROS A LA VEZ
       if(muros.get(0).transform.posicion.x<-50){
         muros.remove(1);
         muros.remove(0);
       }
     }
   }
-
+  /*DEVUELVE LA LISTA DE MUROS*/
   public ArrayList<Muro> getMuros() {
     return this.muros;
   }
+  /*SIRVE PARA SABER SI YA NO HAY MUROS*/
   public boolean isSinMuros(){
   return i==0;
   }
+  /*DEVUELVE EL TOTAL DE PARES DE MUROS*/
   public int getTotal(){
     return this.total;
   }

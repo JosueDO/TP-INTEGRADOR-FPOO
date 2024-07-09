@@ -3,9 +3,10 @@ class Muro extends GameObject implements IDisplayable,IMoveable{
   private Transform transform;
   private ImageComponent imageComponent;
   private PVector velocidad;
-  private boolean sumado;
+  private boolean sumado;//PARA SABER SI YA SE SUMO AL PUNTAJE
   private Collider collider;
   
+  /*GENERA UN MURO*/
   public Muro(PVector posicion){
     transform= new Transform(new PVector(posicion.x,posicion.y));
     imageComponent= new ImageComponent("muro.png");
@@ -26,7 +27,7 @@ class Muro extends GameObject implements IDisplayable,IMoveable{
     this.transform.posicion.x-=this.velocidad.x*Time.getDeltaTime(frameRate);
     this.collider.transform.setPosicion(new PVector(this.transform.posicion.x,this.transform.posicion.y));
   }
-  public boolean isSumado(){
+  public boolean isSumado(){//PREGUNTA SI EL MURO YA SE SUMO EN EL PUNTAJE DESPUES DE SOBREPASARLO
     return sumado;
   }
   public void setSumado(boolean sumado){

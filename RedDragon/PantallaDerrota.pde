@@ -6,6 +6,8 @@ class PantallaDerrota extends GameObject implements IDisplayable{
   private float velTransicionNegro,negro;
   private color tinteNegro;
   
+  
+  /*CREA LA PANTALLA DE DERROTA*/
   public PantallaDerrota(){
     imageComponent= new ImageComponent("derrota.jpg");
     derrota= "DERROTA";
@@ -18,6 +20,7 @@ class PantallaDerrota extends GameObject implements IDisplayable{
     velTransicionNegro=25;
   }
   
+  /*DIBUJA LA PANTALLA CON UN EFECTO DE TRANSPARENCIA*/
   public void display(){
     textFont(fuente);
     tint(tinteNegro);

@@ -20,7 +20,7 @@ class SpriteDragon{
     switch(estadoDragon){
       case MaquinaEstadoDragon.CAYENDO:
         yFrame= heightFrame;
-        this.velTransicion=10;
+        this.velTransicion=10;//VELOCIDAD DE TRANSICION DE SPRITES
         imagen= sprite.imagen.get(this.xFrame, yFrame, widthFrame, heightFrame);
         imagen.resize((int)ancho,(int)alto);
         image(imagen, posicion.x, posicion.y);

@@ -6,6 +6,7 @@ class PantallaInicio extends GameObject implements IDisplayable{
   private color tinte,tinte2,tinte3,tinte4,tinte5; //valor de los colores
   private float velTransicionRojo,rojo,amarillo,velTransicionAmarillo;
   
+  /*CREA LA PANTALLA DE INICIO*/
   public PantallaInicio(){
     imageComponent= new ImageComponent("DragonRojo.jpg");
     fuente= loadFont("AgencyFB-Bold-48.vlw");
@@ -23,6 +24,7 @@ class PantallaInicio extends GameObject implements IDisplayable{
     velTransicionRojo=40;
     velTransicionAmarillo=100;
   }
+  /*DIBUJA LA PANTALLA DE INICIO*/
   public void display(){
     //IMAGEN DE FONDO
     background(0);

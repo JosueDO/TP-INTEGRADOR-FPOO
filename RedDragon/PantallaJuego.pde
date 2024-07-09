@@ -4,6 +4,7 @@ class PantallaJuego extends GameObject implements IDisplayable,IMoveable{
   private Transform transform,transform2;
   private PVector velocidad,velocidad2;
   
+  /*CREA LA PANTALLA DE JUEGO*/
   public PantallaJuego(){
     nubesGrandes= new ImageComponent("fondo01.png");
     nubesChicas= new ImageComponent("fondo02.png");
@@ -29,6 +30,7 @@ class PantallaJuego extends GameObject implements IDisplayable,IMoveable{
     fill(255);
     text((int)dragon.getPuntaje(),width/2,height/10);
   }
+  /*MUEVE LAS NUBES CHICAS Y GRANDES A DIFERENTE VELOCIDAD*/
   public void move(){
     if(transform.posicion.x> -ancho){
       this.transform.posicion.x-=velocidad.x*Time.getDeltaTime(frameRate);
