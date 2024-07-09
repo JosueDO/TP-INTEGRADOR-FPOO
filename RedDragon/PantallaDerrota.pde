@@ -27,8 +27,8 @@ class PantallaDerrota extends GameObject{
     imageMode(CENTER);
     imageComponent.displayImage(this.transform.posicion,width,height);
     fill(negro);
-    textSize(60);
-    text(derrota,width/2-120,height*6/7);
+    textSize(70);
+    text(derrota,width/2-120,100);
     noTint();
   }
 }

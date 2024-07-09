@@ -18,8 +18,8 @@ class Dragon  extends GameObject implements IDisplayable{
   } 
   public void display(){
     imageMode(CORNER);
-    rectMode(CORNER);
-    rect(this.collider.transform.posicion.x,this.collider.transform.posicion.y,this.collider.getAncho(),this.collider.getAlto());
+    //rectMode(CORNER);
+    //rect(this.collider.transform.posicion.x,this.collider.transform.posicion.y,this.collider.getAncho(),this.collider.getAlto());
     spriteDragon.renderDragon(estadoDragon,this.transform.posicion,this.ancho,this.alto);
   }
   public void move(){
@@ -48,18 +48,21 @@ class Dragon  extends GameObject implements IDisplayable{
     }else if(this.estadoDragon==MaquinaEstadoDragon.CAYENDO){
       this.setVelocidad(new PVector(0,300));
     }else if(this.estadoDragon==MaquinaEstadoDragon.GANANDO){
-      this.setVelocidad(new PVector(50,0));
+      this.setVelocidad(new PVector(150,0));
     }
   }
- public void dragonPasoMuro(ArrayList<Muro> muros){
+ public boolean actualizarPuntaje(ArrayList<Muro> muros){
+   int x=0;
    for(Muro m:muros){
      if(m!=null){
-       if(m.transform.getPosicion().x+m.getAncho()<=this.transform.posicion.x && !m.isSumado()){
+       if(m.transform.getPosicion().x+m.getAncho()-40<=this.transform.posicion.x && !m.isSumado()){
           m.setSumado(true);
          this.puntaje+=0.5;
+         x++;
        }
      }
    }
+   return x==2;
  }
  public boolean chocar(ArrayList<Muro> muros){
    boolean isCollide=false;

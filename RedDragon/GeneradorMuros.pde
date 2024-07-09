@@ -4,8 +4,8 @@ class GeneradorMuros implements IDisplayable {
 
   public GeneradorMuros() {
     muros= new ArrayList();
-    total=5;//CANTIDAD DE MUROS QUE SE VAN A GENERAR
-    i=10;//VARIABLE PARA CONTROLAR LA CANTIDAD DE MUROS A GENERAR
+    total=5;//CANTIDAD TOTAL DE PARES DE MUROS
+    i=total*2;//VARIABLE PARA CONTROLAR LA CANTIDAD DE MUROS A GENERAR
   }
   /*GENERA 2 MUROS A LA VEZ*/
   public void generarMuros() {
@@ -35,8 +35,11 @@ class GeneradorMuros implements IDisplayable {
       if (muros.get(i)!=null) {
         muros.get(i).move();
       }
-      if (muros.get(i).transform.posicion.x<0) {
-        muros.remove(i);
+    }
+    if(muros.size()>0){
+      if(muros.get(0).transform.posicion.x<-50){
+        muros.remove(1);
+        muros.remove(0);
       }
     }
   }

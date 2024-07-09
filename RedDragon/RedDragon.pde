@@ -2,13 +2,13 @@ import ddf.minim.*;
 
 Minim minim;
 AudioPlayer audio;
-AudioPlayer audioDerrota;
 
 private int estado;
 private int tiempoActual,tiempoInicial;//CONTROLA EL TIEMPO DE APARACION DE MUROS
 private PantallaInicio pi;
 private PantallaJuego pj;
 private PantallaDerrota pd;
+private PantallaVictoria pv;
 private GeneradorMuros sm;
 private Dragon dragon;
 private Meta meta;
@@ -60,16 +60,29 @@ public void draw(){
       pd= new PantallaDerrota();
       audio= minim.loadFile("SonidoDerrota.mp3");
       audio.play();
+      
     }
     dragon.move();
     sm.move();
-    dragon.dragonPasoMuro(sm.getMuros());//actualiza el puntaje en caso de pasar muros
+    if(dragon.actualizarPuntaje(sm.getMuros())){
+      println("SONIDO MONEDA");
+      audio= minim.loadFile("sonidoMoneda.mp3");
+      audio.play();
+    }//actualiza el puntaje en caso de pasar muros
+    
+    
     if(dragon.getPuntaje()==sm.getTotal()){
-      println(dragon.getPuntaje());
-      println(sm.getTotal());
       dragon.setEstadoDragon(MaquinaEstadoDragon.GANANDO);
+       if(!audio.isPlaying()){
+         audio= minim.loadFile("rugidoDragon.mp3");
+         audio.play();
+       }
       if(dragon.sobrepasarMeta()){
+        audio.close();
         estado=MaquinaEstado.VICTORIA;
+        pv= new PantallaVictoria();
+        audio= minim.loadFile("sonidoVictoria.mp3");
+        audio.play();
       }
     }
     
@@ -77,6 +90,7 @@ public void draw(){
   }
   if(estado==MaquinaEstado.PERDIENDO){
     pd.display();
+    
     if(!audio.isPlaying()){
       audio.close();
       audio= minim.loadFile("musicaDeInicio.mp3");
@@ -86,7 +100,11 @@ public void draw(){
    
   }
   if(estado== MaquinaEstado.VICTORIA){
-    
+    pv.display();
+    if(!audio.isPlaying()){
+      audio.close();
+      pv.mostrarMensaje();
+    }
   }
 }
 /*ENTER PARA INICIAR EL JUEGO Y SHIFT PARA VOLVER A LA PANTALLA DE INICIO*/
@@ -102,6 +120,12 @@ public void keyReleased(){
   if(keyCode==SHIFT && estado==MaquinaEstado.JUGANDO){//PANTALLA DE JUEGO
     estado=MaquinaEstado.MENU;
     pi= new PantallaInicio();
+  }
+  if(keyCode==SHIFT && estado==MaquinaEstado.VICTORIA){
+    estado=MaquinaEstado.MENU;
+    pi= new PantallaInicio();
+    audio.close();
+    audio= minim.loadFile("musicaDeInicio.mp3");
   }
 }
 /*EL DRAGON VUELA CON CLICK IZQUIERDO*/
