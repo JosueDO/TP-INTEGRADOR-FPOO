@@ -1,4 +1,4 @@
-class PantallaVictoria extends GameObject{
+class PantallaVictoria extends Pantalla{
   private ImageComponent imageComponent;
   private Transform transform;
   private String mensaje;

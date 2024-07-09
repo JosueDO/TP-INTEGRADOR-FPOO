@@ -1,4 +1,4 @@
-class PantallaInicio extends GameObject implements IDisplayable{
+class PantallaInicio extends Pantalla implements IDisplayable{
   
   private ImageComponent imageComponent;
   private String titulo,presioneEnter;//mensajes

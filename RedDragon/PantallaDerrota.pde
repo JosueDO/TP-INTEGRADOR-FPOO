@@ -1,4 +1,4 @@
-class PantallaDerrota extends GameObject implements IDisplayable{
+class PantallaDerrota extends Pantalla implements IDisplayable{
   private ImageComponent imageComponent;
   private String derrota;
   private PFont fuente;

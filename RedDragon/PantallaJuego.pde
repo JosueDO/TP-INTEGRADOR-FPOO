@@ -1,4 +1,4 @@
-class PantallaJuego extends GameObject implements IDisplayable,IMoveable{
+class PantallaJuego extends Pantalla implements IDisplayable,IMoveable{
   
   private ImageComponent nubesGrandes,nubesChicas;
   private Transform transform,transform2;

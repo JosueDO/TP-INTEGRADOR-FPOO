@@ -5,10 +5,11 @@ private AudioPlayer audio;
 
 private int estado;//ESTADO DE LA PANTALLA
 private int tiempoActual,tiempoInicial;//CONTROLA EL TIEMPO DE APARACION DE MUROS
-private PantallaInicio pi;
-private PantallaJuego pj;
-private PantallaDerrota pd;
-private PantallaVictoria pv;
+private Pantalla pantallaInicio;
+private Pantalla pantallaDerrota;
+private Pantalla pantallaVictoria;
+private Pantalla pantallaJuego;
+private ManejadorEscenarios me;
 private GeneradorMuros sm;
 private Dragon dragon;
 private Meta meta;
@@ -16,8 +17,9 @@ private Meta meta;
 
 public void setup(){
   size(800,500);
+  me= new ManejadorEscenarios();
   estado=MaquinaEstado.MENU;
-  pi= new PantallaInicio();
+  pantallaInicio= new PantallaInicio();
   minim= new Minim(this);
   audio= minim.loadFile("musicaDeInicio.mp3");
   audio.play();
@@ -27,7 +29,7 @@ public void draw(){
   
   /* SE EJECUTA CADA VEZ QUE SE INICIA EL JUEGO O SE VUELVE A LA PANTALLA DE INICIO, MUESTRA IMAGEN Y MUSICA*/
   if(estado==MaquinaEstado.MENU){
-    pi.display();
+    me.dibujarEscenario(pantallaInicio);
     if(!audio.isPlaying()){//REINICIA LA MUSICA SI TERMINA
       audio.rewind();
       audio.play();
@@ -36,8 +38,8 @@ public void draw(){
   
   /* SE EJECUTA CUANDO EMPIEZA EL JUEGO, GENERA MUROS, EL DRAGON Y LA LOS SONIDOS*/
   if(estado==MaquinaEstado.JUGANDO){
-    pj.display();
-    pj.move();
+    me.dibujarEscenario(pantallaJuego);
+    pantallaJuego.move();
     if(sm.isSinMuros()){//SI YA NO HAY MUROS APARECERA LA META
       meta.display();
       if(meta.transform.getPosicion().x>width-150)//DETIENE LA META
@@ -53,11 +55,11 @@ public void draw(){
        }
     }
     sm.display();
-    pj.mostrarPuntaje(dragon);//MUESTRA EL PUNTAJE
+    pantallaJuego.mostrarPuntaje(dragon);//MUESTRA EL PUNTAJE
     dragon.display();
     if(dragon.chocar(sm.getMuros()) || dragon.sobrepasarLimites()){//EVALUA SI EL DRAGON CHOCA O SI SE SALE DE LOS LIMITES EN "Y" PARA ASIGNAR EL ESTADO DE DERROTA
       estado= MaquinaEstado.PERDIENDO;
-      pd= new PantallaDerrota();
+      pantallaDerrota= new PantallaDerrota();
       audio= minim.loadFile("SonidoDerrota.mp3");// SE EJECUTA SONIDO DE DERROTA
       audio.play();
       
@@ -77,7 +79,7 @@ public void draw(){
       if(dragon.sobrepasarMeta()){//SI SOBREPASA LA META CUANDO YA ENTRO EN ESTADO DE VICTORIA APARECERA LA PANTALLA DE VICTORIA
         audio.close();
         estado=MaquinaEstado.VICTORIA;
-        pv= new PantallaVictoria();
+        pantallaVictoria= new PantallaVictoria();
         audio= minim.loadFile("sonidoVictoria.mp3");//SE EJECUTA SONIDO DE VICTORIA
         audio.play();
       }
@@ -86,45 +88,48 @@ public void draw(){
   
   /*SE EJECUTA SI SE PERDIO EL JUEGO, DURANTE EL TIEMPO QUE DURE EL SONIDO DE DERROTA, DESPUES REDIRIGE AL INICIO*/
   if(estado==MaquinaEstado.PERDIENDO){
-    pd.display();
+    me.dibujarEscenario(pantallaDerrota);
     if(!audio.isPlaying()){//ASIGNA ESTADO DE PANTALLA Y MUSICA DE INICIO
       audio.close();
       audio= minim.loadFile("musicaDeInicio.mp3");
       estado=MaquinaEstado.MENU;
-      pi= new PantallaInicio();
+      pantallaInicio= new PantallaInicio();
     }
   }
   
   /*SE EJECUTA CUANDO EL DRAGON PASA LA META Y GANA EL JUEGO*/
   if(estado== MaquinaEstado.VICTORIA){
-    pv.display();
+    me.dibujarEscenario(pantallaVictoria);
     if(!audio.isPlaying()){
       audio.close();
-      pv.mostrarMensaje();
+      pantallaVictoria.mostrarMensaje();
     }
   }
 }
+/*-------------------------------------------------------------------------------------------------------------------------*/
 /*ENTER PARA INICIAR EL JUEGO Y SHIFT PARA VOLVER A LA PANTALLA DE INICIO*/
 public void keyReleased(){
   if(keyCode==ENTER && estado==MaquinaEstado.MENU){//PANTALLA INICIO
     audio.pause();
     estado=MaquinaEstado.JUGANDO;
     dragon=new Dragon();
-    pj= new PantallaJuego();
+    pantallaJuego= new PantallaJuego();
     tiempoInicial=millis();
     sm= new GeneradorMuros();
   }
-  if(keyCode==SHIFT && estado==MaquinaEstado.JUGANDO){//PANTALLA DE JUEGO
+  if(keyCode==SHIFT && estado==MaquinaEstado.JUGANDO){// SALIR DE LA PANTALLA DE JUEGO
     estado=MaquinaEstado.MENU;
-    pi= new PantallaInicio();
+    pantallaInicio= new PantallaInicio();
   }
   if(keyCode==SHIFT && estado==MaquinaEstado.VICTORIA){//SI SE ENCUENTRA EN PANTALLA DE VICTORIA Y SE APRETA SHIFT VUELVE AL INICIO
     estado=MaquinaEstado.MENU;
-    pi= new PantallaInicio();
+    pantallaInicio= new PantallaInicio();
     audio.close();
     audio= minim.loadFile("musicaDeInicio.mp3");
   }
 }
+
+/*------------------------------------------------------------------------------------------------------------------------*/
 /*EL DRAGON VUELA CON CLICK IZQUIERDO*/
 public void mousePressed(){//ESTADO DRAGON VOLANDO
   if(mouseButton==LEFT && estado==MaquinaEstado.JUGANDO && dragon.estadoDragon!=MaquinaEstadoDragon.GANANDO){
